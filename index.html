@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Escala de Coroinhas - Paróquia São Benedito RO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f0eb;
+            min-height: 100vh;
+            padding: 8px;
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+        /* ===== TEMA ESCURO ===== */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0dcd8;
+        }
+        body.dark-mode .container { background: #2a2a2a; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        body.dark-mode .header { background: #2a2a2a; border-bottom-color: #444; }
+        body.dark-mode .logo h1 { color: #f0ece8; }
+        body.dark-mode .user-badge { background: #3a3a3a; color: #e0dcd8; }
+        body.dark-mode .btn { background: #3a3a3a; color: #e0dcd8; }
+        body.dark-mode .btn-primary { background: #b22222; color: #fff; }
+        body.dark-mode .btn-success { background: #2d6a2d; color: #fff; }
+        body.dark-mode .btn-danger { background: #b22222; color: #fff; }
+        body.dark-mode .btn-warning { background: #b8860b; color: #fff; }
+        body.dark-mode .btn-outline { background: transparent; border-color: #b22222; color: #b22222; }
+        body.dark-mode .month-selector .btn { background: #3a3a3a; color: #e0dcd8; }
+        body.dark-mode .month-selector .btn:hover { background: #4a4a4a; }
+        body.dark-mode .month-selector h2 { color: #f0ece8; }
+        body.dark-mode .day-item { background: #2a2a2a; border-color: #444; }
+        body.dark-mode .day-item:active { background: #333; }
+        body.dark-mode .day-item.today { border-color: #b22222; background: rgba(178,34,34,0.15); }
+        body.dark-mode .day-item .day-number { color: #f0ece8; }
+        body.dark-mode .day-item .day-name { color: #aaa; }
+        body.dark-mode .badge-vazio { background: #444; color: #aaa; }
+        body.dark-mode .badge-aviso { background: #b8860b; color: #fff; }
+        body.dark-mode .modal-content { background: #2a2a2a; }
+        body.dark-mode .modal-header { border-bottom-color: #444; }
+        body.dark-mode .modal-header h3 { color: #f0ece8; }
+        body.dark-mode .modal-close { color: #aaa; }
+        body.dark-mode .modal-close:hover { color: #b22222; }
+        body.dark-mode .missa-item { background: #333; border-color: #444; border-left-color: #b22222; }
+        body.dark-mode .missa-item .horario { color: #f0ece8; }
+        body.dark-mode .missa-item .local { color: #aaa; }
+        body.dark-mode .missa-item .status { color: #e0dcd8; }
+        body.dark-mode .aviso-box { background: #4a3a1a; border-color: #b8860b; color: #f0e8d8; }
+        body.dark-mode .login-card { background: #2a2a2a; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        body.dark-mode .login-card h2 { color: #f0ece8; }
+        body.dark-mode .login-card .subtitle { color: #aaa; }
+        body.dark-mode .login-input { background: #3a3a3a; border-color: #555; color: #e0dcd8; }
+        body.dark-mode .login-input:focus { border-color: #b22222; }
+        body.dark-mode .login-btn { background: #3a3a3a; color: #e0dcd8; }
+        body.dark-mode .login-btn.admin { background: #2c1a0a; color: #fff; }
+        body.dark-mode .login-btn.coroinha { background: #b22222; color: #fff; }
+        body.dark-mode .debug-info { background: #3a3a3a; color: #e0dcd8; }
+        body.dark-mode .debug-error { background: #3a1a1a; color: #ff8a8a; }
+        body.dark-mode .debug-success { background: #1a3a1a; color: #8aff8a; }
+        body.dark-mode .legenda { color: #aaa; }
+        body.dark-mode .legenda .dot { border: 1px solid #555; }
+        body.dark-mode .toast { background: #2a2a2a; border-color: #444; color: #e0dcd8; }
+        body.dark-mode .empty-state { color: #aaa; }
+        body.dark-mode .empty-state i { color: #b22222; }
+        body.dark-mode .loading { color: #b22222; }
+        body.dark-mode .btn-sm.btn-outline { color: #b22222; border-color: #b22222; }
+        body.dark-mode .solicitacao-item { background: #333; border-color: #444; }
+        body.dark-mode .solicitacao-item .justificativa { color: #aaa; }
+        body.dark-mode .notification-badge .badge-count { border-color: #2a2a2a; }
+        body.dark-mode .form-label { color: #e0dcd8; }
+        body.dark-mode .form-input { background: #3a3a3a; border-color: #555; color: #e0dcd8; }
+        body.dark-mode .form-input:focus { border-color: #b22222; }
+
+        /* ===== CONTAINER ===== */
+        .container { max-width: 500px; margin: 0 auto; background: #fff; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); overflow: hidden; width: 100%; transition: background 0.3s; }
+
+        /* ===== HEADER ===== */
+        .header { background: #fff; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 2px solid #e8e0d8; transition: background 0.3s, border-color 0.3s; }
+        .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .logo i { font-size: 2rem; color: #b22222; }
+        .logo h1 { font-size: 1.2rem; font-weight: 700; color: #2c1a0a; white-space: nowrap; transition: color 0.3s; }
+        .logo h1 span { color: #b22222; }
+        .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+        .user-badge { background: #f5f0eb; padding: 8px 14px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; color: #2c1a0a; white-space: nowrap; max-width: 140px; overflow: hidden; text-overflow: ellipsis; transition: background 0.3s, color 0.3s; }
+        .user-badge i { color: #b22222; margin-right: 4px; }
+
+        .theme-toggle { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #2c1a0a; padding: 6px 10px; border-radius: 50%; transition: background 0.2s, color 0.3s; min-height: 48px; min-width: 48px; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle:hover { background: rgba(0,0,0,0.05); }
+        body.dark-mode .theme-toggle { color: #f0ece8; }
+        body.dark-mode .theme-toggle:hover { background: rgba(255,255,255,0.05); }
+
+        .notification-badge { position: relative; }
+        .notification-badge .badge-count { position: absolute; top: -6px; right: -6px; background: #b22222; color: #fff; border-radius: 50%; padding: 2px 8px; font-size: 0.7rem; font-weight: 700; min-width: 20px; text-align: center; border: 2px solid #fff; }
+
+        /* ===== BOTÕES ===== */
+        .btn { padding: 12px 18px; border: none; border-radius: 14px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #f5f0eb; color: #2c1a0a; touch-action: manipulation; user-select: none; min-height: 50px; min-width: 50px; white-space: nowrap; }
+        .btn:active { transform: scale(0.95); }
+        .btn-primary { background: #b22222; color: #fff; }
+        .btn-primary:hover { background: #8b1a1a; }
+        .btn-success { background: #2d6a2d; color: #fff; }
+        .btn-success:hover { background: #1a5a1a; }
+        .btn-warning { background: #b8860b; color: #fff; }
+        .btn-warning:hover { background: #8a6a0a; }
+        .btn-danger { background: #b22222; color: #fff; }
+        .btn-danger:hover { background: #8b1a1a; }
+        .btn-outline { background: transparent; border: 2px solid #b22222; color: #b22222; }
+        .btn-outline:hover { background: rgba(178,34,34,0.08); }
+        .btn-sm { padding: 10px 14px; font-size: 0.9rem; min-height: 42px; min-width: 42px; }
+        .btn-lg { padding: 16px 22px; font-size: 1.1rem; min-height: 56px; width: 100%; }
+        .btn-block { width: 100%; justify-content: center; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ===== MAIN ===== */
+        .main-content { padding: 16px; }
+
+        /* ===== CONTROLES ===== */
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+        .month-selector { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+        .month-selector .btn { padding: 12px 16px; min-height: 48px; min-width: 48px; font-size: 1.2rem; background: #f5f0eb; color: #2c1a0a; flex-shrink: 0; transition: background 0.3s, color 0.3s; }
+        .month-selector .btn:hover { background: #e8e0d8; }
+        .month-selector h2 { font-size: 1.2rem; color: #2c1a0a; flex: 1; text-align: center; font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color 0.3s; }
+        #adminActions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+        /* ===== LISTA DE DIAS ===== */
+        .days-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+        .day-item { background: #fff; border: 2px solid #e8e0d8; border-radius: 16px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s; touch-action: manipulation; min-height: 64px; }
+        .day-item:active { transform: scale(0.97); background: #faf8f5; }
+        .day-item.today { border-color: #b22222; background: rgba(178,34,34,0.04); box-shadow: 0 0 20px rgba(178,34,34,0.06); }
+        .day-item .day-info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+        .day-item .day-number { font-size: 1.4rem; font-weight: 700; color: #2c1a0a; transition: color 0.3s; }
+        .day-item .day-name { font-size: 0.9rem; color: #8a7a6a; font-weight: 500; transition: color 0.3s; }
+        .day-item .day-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+        .badge-confirmado { background: #2d6a2d; color: #fff; }
+        .badge-pendente { background: #b8860b; color: #fff; }
+        .badge-missa { background: #b22222; color: #fff; }
+        .badge-vazio { background: #f0ece8; color: #8a7a6a; transition: background 0.3s, color 0.3s; }
+        .badge-aviso { background: #b8860b; color: #fff; }
+
+        /* ===== MODAL ===== */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: center; padding: 12px; }
+        .modal.active { display: flex; }
+        .modal-content { background: #fff; border-radius: 24px; padding: 20px; width: 100%; max-width: 500px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); max-height: 92vh; overflow-y: auto; transition: background 0.3s; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 2px solid #f0ece8; padding-bottom: 12px; transition: border-color 0.3s; }
+        .modal-header h3 { font-size: 1.3rem; font-weight: 700; color: #2c1a0a; transition: color 0.3s; }
+        .modal-header h3 i { color: #b22222; margin-right: 8px; }
+        .modal-close { background: none; border: none; font-size: 2.2rem; cursor: pointer; color: #8a7a6a; padding: 0 10px; min-height: 48px; min-width: 48px; transition: color 0.2s; }
+        .modal-close:hover { color: #b22222; }
+
+        /* ===== MISSAS NO MODAL ===== */
+        .missa-item { background: #faf8f5; border-radius: 16px; padding: 14px 18px; margin-bottom: 12px; border-left: 4px solid #b22222; border: 1px solid #f0ece8; border-left-width: 4px; transition: background 0.3s, border-color 0.3s; }
+        .missa-item .horario { font-weight: 700; font-size: 1.2rem; color: #2c1a0a; transition: color 0.3s; }
+        .missa-item .horario i { color: #b22222; margin-right: 6px; }
+        .missa-item .local { color: #8a7a6a; font-size: 0.95rem; margin-top: 2px; transition: color 0.3s; }
+        .missa-item .local i { color: #b22222; margin-right: 4px; }
+        .missa-item .status { font-size: 0.9rem; margin-top: 6px; font-weight: 500; }
+        .status-pendente { color: #b8860b; }
+        .status-confirmado { color: #2d6a2d; }
+        .status-recusado { color: #b22222; }
+        .missa-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        .missa-actions .btn { flex: 1; min-width: 80px; padding: 12px 16px; font-size: 0.9rem; min-height: 44px; }
+
+        /* ===== AVISO ===== */
+        .aviso-box {
+            background: #fef8e7;
+            border: 2px solid #b8860b;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 8px 0;
+            text-align: center;
+        }
+        .aviso-box i { color: #b8860b; font-size: 1.5rem; margin-right: 8px; }
+        .aviso-box .aviso-mensagem { font-weight: 600; font-size: 1rem; }
+
+        /* ===== SOLICITAÇÕES ===== */
+        .solicitacao-item { background: #faf8f5; border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; border: 1px solid #f0ece8; transition: background 0.3s, border-color 0.3s; }
+        .solicitacao-item .solicitante, .solicitacao-item .substituto, .solicitacao-item .justificativa { font-size: 0.9rem; margin: 4px 0; }
+        .solicitacao-item .solicitante i, .solicitacao-item .substituto i { color: #b22222; margin-right: 4px; }
+        .solicitacao-item .justificativa { color: #8a7a6a; font-style: italic; }
+        .solicitacao-actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .solicitacao-actions .btn { flex: 1; min-width: 60px; padding: 8px 12px; font-size: 0.85rem; min-height: 38px; }
+
+        /* ===== FORM ===== */
+        .form-label { font-weight: 600; font-size: 0.95rem; color: #2c1a0a; transition: color 0.3s; display: block; margin-top: 12px; margin-bottom: 4px; }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e8e0d8;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin: 4px 0 8px;
+            min-height: 50px;
+            background: #faf8f5;
+            color: #2c1a0a;
+            transition: border-color 0.2s, background 0.3s, color 0.3s;
+            font-family: inherit;
+        }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #b22222; }
+        .form-textarea { min-height: 80px; resize: vertical; }
+        .form-hint { font-size: 0.8rem; color: #8a7a6a; margin-top: -4px; margin-bottom: 8px; }
+
+        /* ===== LOGIN ===== */
+        .login-screen { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: #f5f0eb; padding: 16px; transition: background 0.3s; }
+        body.dark-mode .login-screen { background: #1a1a1a; }
+        .login-card { background: #fff; border-radius: 24px; padding: 32px 24px; width: 100%; max-width: 420px; box-shadow: 0 20px 60px rgba(0,0,0,0.08); text-align: center; transition: background 0.3s, box-shadow 0.3s; }
+        .login-card .church-icon { font-size: 3.5rem; color: #b22222; margin-bottom: 8px; }
+        .login-card h2 { font-size: 1.5rem; margin-bottom: 4px; font-weight: 700; color: #2c1a0a; transition: color 0.3s; }
+        .login-card .subtitle { color: #8a7a6a; font-size: 1rem; margin-bottom: 20px; transition: color 0.3s; }
+        .login-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: #8a7a6a; font-size: 0.85rem; }
+        .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: #e8e0d8; }
+        .login-btn { display: block; width: 100%; padding: 16px; margin: 8px 0; border: none; border-radius: 14px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.3s; touch-action: manipulation; min-height: 56px; }
+        .login-btn:active { transform: scale(0.97); }
+        .login-btn.admin { background: #2c1a0a; color: #fff; }
+        .login-btn.admin:hover { background: #4a2a1a; }
+        .login-btn.coroinha { background: #b22222; color: #fff; }
+        .login-btn.coroinha:hover { background: #8b1a1a; }
+        .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .login-input { width: 100%; padding: 16px; border: 2px solid #e8e0d8; border-radius: 12px; font-size: 1rem; margin-bottom: 12px; min-height: 56px; background: #faf8f5; color: #2c1a0a; transition: border-color 0.2s, background 0.3s, color 0.3s; }
+        .login-input:focus { outline: none; border-color: #b22222; }
+        .login-input-group { margin-top: 12px; }
+
+        /* ===== TOAST ===== */
+        .toast-container { position: fixed; top: 12px; left: 12px; right: 12px; z-index: 2000; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .toast { background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); animation: slideDown 0.3s ease; display: flex; align-items: center; gap: 12px; font-size: 1rem; width: 100%; max-width: 420px; font-weight: 500; border: 1px solid #f0ece8; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+        .toast.success { border-left: 4px solid #2d6a2d; }
+        .toast.error { border-left: 4px solid #b22222; }
+        .toast.info { border-left: 4px solid #b8860b; }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* ===== ESTADOS ===== */
+        .empty-state { text-align: center; padding: 30px 20px; color: #8a7a6a; transition: color 0.3s; }
+        .empty-state i { font-size: 3rem; margin-bottom: 12px; color: #b22222; }
+        .empty-state p { font-size: 1rem; }
+        .debug-info { background: #f5f0eb; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; color: #2c1a0a; margin-top: 16px; display: inline-block; width: 100%; word-break: break-word; transition: background 0.3s, color 0.3s; }
+        .debug-error { background: #fde8e8; color: #8b1a1a; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; margin-top: 16px; display: inline-block; width: 100%; word-break: break-word; transition: background 0.3s, color 0.3s; }
+        .debug-success { background: #e8f5e8; color: #1a5a1a; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; margin-top: 16px; display: inline-block; width: 100%; word-break: break-word; transition: background 0.3s, color 0.3s; }
+        .legenda { text-align: center; font-size: 0.85rem; color: #8a7a6a; padding: 12px 0 4px 0; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; transition: color 0.3s; }
+        .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+        .legenda .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex-shrink: 0; transition: border-color 0.3s; }
+        .loading { text-align: center; padding: 30px; color: #b22222; font-size: 1rem; transition: color 0.3s; }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 480px) {
+            html { font-size: 18px; }
+            body { padding: 6px; }
+            .container { border-radius: 20px; }
+            .header { padding: 14px 16px; }
+            .logo i { font-size: 1.8rem; }
+            .logo h1 { font-size: 1rem; }
+            .user-badge { font-size: 0.8rem; padding: 6px 12px; max-width: 100px; }
+            .theme-toggle { font-size: 1.4rem; min-height: 42px; min-width: 42px; }
+            .btn { font-size: 0.9rem; padding: 10px 14px; min-height: 44px; min-width: 44px; }
+            .btn-sm { font-size: 0.8rem; padding: 8px 12px; min-height: 38px; min-width: 38px; }
+            .btn-lg { font-size: 1rem; padding: 14px 18px; min-height: 50px; }
+            .main-content { padding: 12px; }
+            .month-selector { gap: 8px; }
+            .month-selector h2 { font-size: 1rem; }
+            .month-selector .btn { font-size: 1rem; min-height: 42px; min-width: 42px; padding: 8px 12px; }
+            .day-item { padding: 12px 14px; min-height: 56px; border-radius: 14px; }
+            .day-item .day-number { font-size: 1.2rem; }
+            .day-item .day-name { font-size: 0.8rem; }
+            .badge { font-size: 0.65rem; padding: 3px 10px; }
+            .modal-content { padding: 16px; }
+            .modal-header h3 { font-size: 1.1rem; }
+            .modal-close { font-size: 2rem; min-height: 42px; min-width: 42px; }
+            .missa-item { padding: 12px 14px; }
+            .missa-item .horario { font-size: 1.1rem; }
+            .missa-item .local { font-size: 0.85rem; }
+            .missa-actions .btn { font-size: 0.8rem; padding: 10px 12px; min-height: 40px; min-width: 60px; }
+            .login-card { padding: 24px 16px; }
+            .login-card h2 { font-size: 1.3rem; }
+            .login-card .subtitle { font-size: 0.9rem; }
+            .login-btn { font-size: 0.95rem; padding: 14px; min-height: 50px; }
+            .login-input { font-size: 0.95rem; padding: 14px; min-height: 50px; }
+            .legenda { font-size: 0.75rem; gap: 12px; }
+            .legenda .dot { width: 10px; height: 10px; }
+            .toast { font-size: 0.9rem; padding: 12px 14px; }
+            .debug-info, .debug-error, .debug-success { font-size: 0.75rem; padding: 8px 12px; }
+            .empty-state i { font-size: 2.5rem; }
+            .solicitacao-item { padding: 10px 12px; }
+            .solicitacao-item .solicitante, .solicitacao-item .substituto, .solicitacao-item .justificativa { font-size: 0.8rem; }
+            .form-input, .form-textarea { padding: 12px; font-size: 0.9rem; min-height: 44px; }
+            .aviso-box { padding: 12px; }
+        }
+        @media (max-width: 360px) {
+            html { font-size: 16px; }
+            .header { padding: 10px 12px; gap: 6px; }
+            .logo i { font-size: 1.5rem; }
+            .logo h1 { font-size: 0.9rem; }
+            .user-badge { font-size: 0.7rem; padding: 4px 10px; max-width: 70px; }
+            .theme-toggle { font-size: 1.2rem; min-height: 36px; min-width: 36px; }
+            .btn { font-size: 0.8rem; padding: 8px 12px; min-height: 38px; min-width: 38px; }
+            .btn-sm { font-size: 0.7rem; padding: 6px 10px; min-height: 34px; min-width: 34px; }
+            .btn-lg { font-size: 0.9rem; padding: 12px 16px; min-height: 46px; }
+            .main-content { padding: 10px; }
+            .month-selector h2 { font-size: 0.9rem; }
+            .month-selector .btn { font-size: 0.9rem; min-height: 36px; min-width: 36px; padding: 6px 10px; }
+            .day-item { padding: 10px 12px; min-height: 48px; }
+            .day-item .day-number { font-size: 1rem; }
+            .day-item .day-name { font-size: 0.7rem; }
+            .badge { font-size: 0.6rem; padding: 2px 8px; }
+            .modal-content { padding: 14px; }
+            .modal-header h3 { font-size: 1rem; }
+            .modal-close { font-size: 1.8rem; min-height: 38px; min-width: 38px; }
+            .missa-item { padding: 10px 12px; }
+            .missa-item .horario { font-size: 1rem; }
+            .missa-item .local { font-size: 0.8rem; }
+            .missa-actions .btn { font-size: 0.75rem; padding: 8px 10px; min-height: 36px; min-width: 50px; }
+            .login-card { padding: 20px 14px; }
+            .login-card h2 { font-size: 1.1rem; }
+            .login-btn { font-size: 0.9rem; padding: 12px; min-height: 46px; }
+            .login-input { font-size: 0.9rem; padding: 12px; min-height: 46px; }
+        }
+        @media (min-width: 768px) {
+            body { padding: 20px; }
+            .container { max-width: 600px; }
+            .day-item { padding: 18px 22px; min-height: 72px; }
+            .day-item .day-number { font-size: 1.6rem; }
+            .day-item .day-name { font-size: 1rem; }
+            .btn { font-size: 1.05rem; padding: 14px 20px; min-height: 54px; }
+            .modal-content { padding: 24px; }
+            .missa-item .horario { font-size: 1.3rem; }
+        }
+        .modal-content::-webkit-scrollbar { width: 4px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #d4c8c0; border-radius: 10px; }
+        body.dark-mode .modal-content::-webkit-scrollbar-thumb { background: #555; }
+        .day-item, .btn, .modal-close, .login-btn, .theme-toggle { -webkit-touch-callout: none; }
+    </style>
+</head>
+<body>
+    <!-- ===== LOGIN ===== -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="church-icon"><i class="fas fa-church"></i></div>
+            <h2>Escala de Coroinhas</h2>
+            <p class="subtitle">Paróquia São Benedito</p>
+            <button class="login-btn admin" id="btnAdminLogin"><i class="fas fa-lock"></i> Administrador</button>
+            <button class="login-btn coroinha" id="btnCoroinhaLogin"><i class="fas fa-user"></i> Sou Coroinha</button>
+
+            <div id="loginAdminForm" style="display:none;" class="login-input-group">
+                <input type="password" id="senhaAdmin" class="login-input" placeholder="Digite a senha do administrador">
+                <button class="login-btn admin" id="btnLoginAdmin"><i class="fas fa-sign-in-alt"></i> Entrar como Admin</button>
+                <button class="login-btn" id="btnCancelAdmin" style="background:#f0ece8; color:#2c1a0a;"><i class="fas fa-times"></i> Cancelar</button>
+            </div>
+            <div id="loginCoroinhaForm" style="display:none;" class="login-input-group">
+                <input type="text" id="nomeCoroinhaLogin" class="login-input" placeholder="Digite seu nome completo">
+                <button class="login-btn coroinha" id="btnLoginCoroinha"><i class="fas fa-sign-in-alt"></i> Entrar como Coroinha</button>
+                <button class="login-btn" id="btnCancelCoroinha" style="background:#f0ece8; color:#2c1a0a;"><i class="fas fa-times"></i> Cancelar</button>
+            </div>
+            <div id="statusMessage" class="debug-info">🔄 Inicializando...</div>
+        </div>
+    </div>
+
+    <!-- ===== SISTEMA ===== -->
+    <div class="container" id="mainSystem" style="display:none;">
+        <header class="header">
+            <div class="logo"><i class="fas fa-church"></i><h1>Escala <span>·</span> Coroinhas</h1></div>
+            <div class="header-actions">
+                <span class="user-badge" id="userBadge"></span>
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
+                <div id="adminNotificationBtn" style="display:none;" class="notification-badge">
+                    <button class="btn btn-sm btn-warning" id="btnVerSolicitacoes"><i class="fas fa-exchange-alt"></i> <span id="solicitacoesCount">0</span></button>
+                </div>
+                <button class="btn btn-sm btn-outline" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="controls">
+                <div class="month-selector">
+                    <button class="btn btn-sm" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="currentMonth">Carregando...</h2>
+                    <button class="btn btn-sm" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div id="adminActions" style="display:none;">
+                    <button class="btn btn-success btn-sm" id="generateScaleBtn"><i class="fas fa-magic"></i> Gerar</button>
+                </div>
+            </div>
+            <div class="days-list" id="daysList"><div class="loading">Carregando dias...</div></div>
+            <div class="legenda">
+                <span><span class="dot" style="background:#2d6a2d;"></span> Confirmado</span>
+                <span><span class="dot" style="background:#b8860b;"></span> Pendente</span>
+                <span><span class="dot" style="background:#b22222;"></span> Missa</span>
+                <span><span class="dot" style="background:#e8e0d8;"></span> Vazio</span>
+                <span><span class="dot" style="background:#b8860b;"></span> Aviso</span>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== MODAL DE DIA ===== -->
+    <div class="modal" id="dayModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalDayTitle"><i class="fas fa-calendar-alt"></i> Dia</h3>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div id="modalDayContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL DE SOLICITAÇÃO DE TROCA ===== -->
+    <div class="modal" id="solicitacaoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exchange-alt"></i> Solicitar Troca</h3>
+                <button class="modal-close" id="solicitacaoModalClose">&times;</button>
+            </div>
+            <div id="solicitacaoModalContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL DE LISTA DE SOLICITAÇÕES (ADMIN) ===== -->
+    <div class="modal" id="listaSolicitacoesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-list"></i> Solicitações de Troca</h3>
+                <button class="modal-close" id="listaSolicitacoesModalClose">&times;</button>
+            </div>
+            <div id="listaSolicitacoesContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ================================================================
+        // TEMA
+        // ================================================================
+        (function initTheme() {
+            const stored = localStorage.getItem('theme_preference');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = stored === 'dark' || (stored === null && prefersDark);
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('#themeToggle i');
+                if (icon) icon.className = 'fas fa-sun';
+            }
+        })();
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            const isDark = body.classList.toggle('dark-mode');
+            if (isDark) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme_preference', 'dark');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme_preference', 'light');
+            }
+        }
+
+        // ================================================================
+        // SUPABASE
+        // ================================================================
+        const SUPABASE_URL = 'https://dflnzwutjzcqcsshvxdq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmbG56d3V0anpjcWNzc2h2eGRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDAyMDAsImV4cCI6MjA5NzUxNjIwMH0.bqNhpB2E7UphmnqwIS78ESfo45XcGdI9oXJ1jpHilEU';
+        const headers = {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+        };
+
+        const API = {
+            async get(table, params = {}) {
+                let url = `${SUPABASE_URL}/rest/v1/${table}?select=*`;
+                if (params.mes) url += `&mes=eq.${params.mes}`;
+                if (params.ano) url += `&ano=eq.${params.ano}`;
+                if (params.id) url += `&id=eq.${params.id}`;
+                if (params.data_escala) url += `&data_escala=eq.${params.data_escala}`;
+                if (params.status) url += `&status=eq.${params.status}`;
+                const response = await fetch(url, { headers });
+                if (!response.ok) throw new Error(`Erro ${response.status}: ${await response.text()}`);
+                return await response.json();
+            },
+            async post(table, data) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+                    method: 'POST',
+                    headers: { ...headers, 'Prefer': 'return=representation' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) { const error = await response.text(); throw new Error(`Erro ${response.status}: ${error}`); }
+                const result = await response.json();
+                return result[0] || result;
+            },
+            async patch(table, id, data) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+                    method: 'PATCH',
+                    headers: { ...headers, 'Prefer': 'return=representation' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) { const error = await response.text(); throw new Error(`Erro ${response.status}: ${error}`); }
+                const result = await response.json();
+                return result[0] || result;
+            },
+            async delete(table, id) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+                    method: 'DELETE',
+                    headers: { ...headers, 'Prefer': 'return=representation' }
+                });
+                if (!response.ok) { const error = await response.text(); throw new Error(`Erro ${response.status}: ${error}`); }
+                return true;
+            },
+            async deleteByData(table, dataEscala) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?data_escala=eq.${dataEscala}`, {
+                    method: 'DELETE',
+                    headers: { ...headers, 'Prefer': 'return=representation' }
+                });
+                if (!response.ok) { const error = await response.text(); throw new Error(`Erro ${response.status}: ${error}`); }
+                return true;
+            }
+        };
+
+        // ================================================================
+        // DB
+        // ================================================================
+        const DB = {
+            async getCoroinhas() { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.get('coroinhas'); },
+            async getCoroinhaByNome(nome) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                const result = await API.get('coroinhas');
+                return result.find(c => c.nome.toLowerCase() === nome.toLowerCase()) || null;
+            },
+            async createCoroinha(nome) { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.post('coroinhas', { nome: nome.trim(), ativo: true }); },
+            async getHorarios() { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.get('horarios'); },
+            async getDisponibilidades(mes, ano) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                const all = await API.get('disponibilidades');
+                return all.filter(d => d.mes === mes && d.ano === ano);
+            },
+            async getEscalas(mes, ano) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                const all = await API.get('escalas');
+                return all.filter(e => e.mes === mes && e.ano === ano);
+            },
+            async createEscala(escala) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                return await API.post('escalas', {
+                    mes: escala.mes, ano: escala.ano, data_escala: escala.data_escala,
+                    horario: escala.horario, local: escala.local || '',
+                    coroinha_id: escala.coroinha_id, coroinha_nome: escala.coroinha_nome,
+                    status: escala.status || 'pendente', funcao: escala.funcao || 'Coroinha'
+                });
+            },
+            async updateEscala(id, updates) { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.patch('escalas', id, updates); },
+            async deleteEscala(id) { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.delete('escalas', id); },
+            async deleteEscalasByData(dataEscala) { if (!supabaseReady) throw new Error('Supabase não conectado'); return await API.deleteByData('escalas', dataEscala); },
+            // AVISOS
+            async getAvisos(dataEscala, horario, local) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                let params = {};
+                if (dataEscala) params.data_escala = dataEscala;
+                if (horario) params.horario = horario;
+                if (local) params.local = local;
+                return await API.get('avisos', params);
+            },
+            async createAviso(data) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                return await API.post('avisos', data);
+            },
+            async deleteAviso(id) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                return await API.delete('avisos', id);
+            },
+            // SOLICITAÇÕES
+            async getSolicitacoes(status) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                const params = status ? { status } : {};
+                return await API.get('solicitacoes_troca', params);
+            },
+            async createSolicitacao(data) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                return await API.post('solicitacoes_troca', data);
+            },
+            async updateSolicitacao(id, updates) {
+                if (!supabaseReady) throw new Error('Supabase não conectado');
+                return await API.patch('solicitacoes_troca', id, updates);
+            }
+        };
+
+        // ================================================================
+        // ESTADO
+        // ================================================================
+        let currentUser = null;
+        let currentDate = new Date();
+        let coroinhaAtual = null;
+        let isAdmin = false;
+        let supabaseReady = false;
+
+        // ================================================================
+        // CONEXÃO
+        // ================================================================
+        async function testConnection() {
+            const statusMsg = document.getElementById('statusMessage');
+            try {
+                await API.get('horarios');
+                console.log('✅ Conectado ao Supabase!');
+                statusMsg.className = 'debug-success';
+                statusMsg.textContent = '✅ Conectado ao Supabase!';
+                supabaseReady = true;
+                document.querySelectorAll('.login-btn').forEach(b => b.disabled = false);
+                return true;
+            } catch (e) {
+                console.error('❌ Erro:', e);
+                statusMsg.className = 'debug-error';
+                statusMsg.textContent = '❌ Erro ao conectar: ' + e.message;
+                supabaseReady = false;
+                return false;
+            }
+        }
+
+        // ================================================================
+        // LOGIN
+        // ================================================================
+        function showAdminLogin() {
+            document.getElementById('loginAdminForm').style.display = 'block';
+            document.getElementById('loginCoroinhaForm').style.display = 'none';
+            document.getElementById('btnAdminLogin').style.display = 'none';
+            document.getElementById('btnCoroinhaLogin').style.display = 'none';
+            document.getElementById('senhaAdmin').focus();
+        }
+        function showCoroinhaLogin() {
+            document.getElementById('loginCoroinhaForm').style.display = 'block';
+            document.getElementById('loginAdminForm').style.display = 'none';
+            document.getElementById('btnAdminLogin').style.display = 'none';
+            document.getElementById('btnCoroinhaLogin').style.display = 'none';
+            document.getElementById('nomeCoroinhaLogin').focus();
+        }
+        function hideLoginForms() {
+            document.getElementById('loginAdminForm').style.display = 'none';
+            document.getElementById('loginCoroinhaForm').style.display = 'none';
+            document.getElementById('btnAdminLogin').style.display = 'block';
+            document.getElementById('btnCoroinhaLogin').style.display = 'block';
+        }
+
+        async function loginAdmin() {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                const senha = document.getElementById('senhaAdmin').value;
+                if (senha === 'Jesus') {
+                    isAdmin = true;
+                    currentUser = { id: 'admin', nome: 'Administrador' };
+                    await entrarSistema();
+                } else {
+                    showToast('Senha incorreta!', 'error');
+                    document.getElementById('senhaAdmin').value = '';
+                    document.getElementById('senhaAdmin').focus();
+                }
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function loginCoroinha() {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                const nome = document.getElementById('nomeCoroinhaLogin').value.trim();
+                if (!nome) { showToast('Digite seu nome!', 'error'); document.getElementById('nomeCoroinhaLogin').focus(); return; }
+                let coroinha = await DB.getCoroinhaByNome(nome);
+                if (!coroinha) {
+                    coroinha = await DB.createCoroinha(nome);
+                    showToast('Coroinha criado com sucesso!', 'success');
+                } else if (!coroinha.ativo) {
+                    showToast('Coroinha inativo!', 'error');
+                    return;
+                }
+                isAdmin = false;
+                currentUser = coroinha;
+                coroinhaAtual = coroinha;
+                await entrarSistema();
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function entrarSistema() {
+            try {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainSystem').style.display = 'block';
+                if (isAdmin) {
+                    document.getElementById('userBadge').innerHTML = '<i class="fas fa-lock"></i> Administrador';
+                    document.getElementById('adminActions').style.display = 'block';
+                    document.getElementById('adminNotificationBtn').style.display = 'block';
+                } else {
+                    document.getElementById('userBadge').innerHTML = `<i class="fas fa-user"></i> ${currentUser.nome}`;
+                    document.getElementById('adminActions').style.display = 'none';
+                    document.getElementById('adminNotificationBtn').style.display = 'none';
+                }
+                await inserirHorariosPadrao();
+                await renderizarLista();
+                if (isAdmin) await atualizarContadorSolicitacoes();
+            } catch (e) {
+                console.error('Erro ao entrar:', e);
+                showToast('Erro ao carregar sistema: ' + e.message, 'error');
+            }
+        }
+
+        const HORARIOS_PADRAO = [
+            { dia_semana: 'domingo', horario: '08:00', local: 'Paróquia São Benedito' },
+            { dia_semana: 'domingo', horario: '10:00', local: 'Paróquia São Benedito' },
+            { dia_semana: 'domingo', horario: '20:00', local: 'Paróquia São Benedito' },
+            { dia_semana: 'domingo', horario: '18:00', local: 'Capela Santo Antônio' },
+            { dia_semana: 'terca', horario: '19:00', local: 'Capela Santo Antônio' },
+            { dia_semana: 'quarta', horario: '19:00', local: 'Paróquia São Benedito' },
+            { dia_semana: 'quinta', horario: '19:30', local: 'Paróquia São Benedito' },
+            { dia_semana: 'sexta', horario: '19:00', local: 'Paróquia São Benedito' },
+            { dia_semana: 'sabado', horario: '17:00', local: 'Capela Nossa Senhora Rosa Mística' }
+        ];
+        async function inserirHorariosPadrao() {
+            try {
+                if (!supabaseReady) return;
+                const existentes = await DB.getHorarios();
+                if (existentes.length > 0) return;
+                for (const h of HORARIOS_PADRAO) { await API.post('horarios', h); }
+                console.log('✅ Horários padrão inseridos');
+            } catch (e) { console.warn('⚠️ Erro ao inserir horários padrão:', e); }
+        }
+
+        function logout() {
+            currentUser = null;
+            coroinhaAtual = null;
+            isAdmin = false;
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainSystem').style.display = 'none';
+            document.getElementById('dayModal').classList.remove('active');
+            document.getElementById('solicitacaoModal').classList.remove('active');
+            document.getElementById('listaSolicitacoesModal').classList.remove('active');
+            hideLoginForms();
+            document.getElementById('senhaAdmin').value = '';
+            document.getElementById('nomeCoroinhaLogin').value = '';
+        }
+
+        // ================================================================
+        // RENDERIZAR LISTA
+        // ================================================================
+        async function renderizarLista() {
+            try {
+                if (!supabaseReady) {
+                    document.getElementById('daysList').innerHTML = `<div class="empty-state"><i class="fas fa-wifi"></i><p>Aguardando conexão...</p></div>`;
+                    return;
+                }
+                const list = document.getElementById('daysList');
+                const mes = currentDate.getMonth() + 1;
+                const ano = currentDate.getFullYear();
+                const hoje = new Date();
+                const diasNoMes = new Date(ano, mes, 0).getDate();
+                const [escalas, horarios, avisos] = await Promise.all([
+                    DB.getEscalas(mes, ano),
+                    DB.getHorarios(),
+                    DB.getAvisos()
+                ]);
+                const porDiaConfirmado = {};
+                const porDiaPendente = {};
+                escalas.forEach(e => {
+                    const key = e.data_escala;
+                    if (e.status === 'confirmado') porDiaConfirmado[key] = (porDiaConfirmado[key] || 0) + 1;
+                    else if (e.status === 'pendente') porDiaPendente[key] = (porDiaPendente[key] || 0) + 1;
+                });
+                // Mapear avisos por data
+                const avisosPorDia = {};
+                avisos.forEach(a => {
+                    const key = a.data_escala;
+                    if (!avisosPorDia[key]) avisosPorDia[key] = [];
+                    avisosPorDia[key].push(a);
+                });
+
+                const diasComMissa = new Set();
+                for (let dia = 1; dia <= diasNoMes; dia++) {
+                    const data = new Date(ano, mes - 1, dia);
+                    const diaSemana = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'][data.getDay()];
+                    const temMissa = horarios.some(h => h.dia_semana === diaSemana);
+                    const primeiraSexta = (data.getDay() === 5 && dia <= 7);
+                    if (temMissa || primeiraSexta) diasComMissa.add(`${ano}-${String(mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}`);
+                }
+                const nomesDias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+                let html = '';
+                for (let dia = 1; dia <= diasNoMes; dia++) {
+                    const data = new Date(ano, mes - 1, dia);
+                    const dataStr = `${ano}-${String(mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+                    const isToday = data.toDateString() === hoje.toDateString();
+                    const confirmados = porDiaConfirmado[dataStr] || 0;
+                    const pendentes = porDiaPendente[dataStr] || 0;
+                    const temMissa = diasComMissa.has(dataStr);
+                    const temAviso = avisosPorDia[dataStr] && avisosPorDia[dataStr].length > 0;
+                    let badge = '';
+                    if (temAviso) {
+                        badge = `<span class="badge badge-aviso"><i class="fas fa-bullhorn"></i> Aviso</span>`;
+                    } else if (confirmados > 0) {
+                        badge = `<span class="badge badge-confirmado"><i class="fas fa-check"></i> ${confirmados}</span>`;
+                    } else if (pendentes > 0) {
+                        badge = `<span class="badge badge-pendente"><i class="fas fa-hourglass-half"></i> ${pendentes}</span>`;
+                    } else if (temMissa) {
+                        badge = `<span class="badge badge-missa"><i class="fas fa-church"></i> Missa</span>`;
+                    } else {
+                        badge = `<span class="badge badge-vazio">-</span>`;
+                    }
+                    const diaNome = nomesDias[data.getDay()];
+                    html += `<div class="day-item ${isToday ? 'today' : ''}" data-data="${dataStr}">
+                        <div class="day-info"><div class="day-number">${dia}</div><div class="day-name">${diaNome}</div></div>
+                        <div class="day-badges">${badge}</div>
+                    </div>`;
+                }
+                list.innerHTML = html;
+                document.querySelectorAll('.day-item[data-data]').forEach(el => {
+                    el.addEventListener('click', function() { abrirDia(this.dataset.data); });
+                });
+                updateMonthDisplay();
+                if (isAdmin) await atualizarContadorSolicitacoes();
+            } catch (e) {
+                console.error('Erro ao renderizar lista:', e);
+                document.getElementById('daysList').innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Erro: ${e.message}</p></div>`;
+                showToast('Erro ao carregar: ' + e.message, 'error');
+            }
+        }
+
+        function updateMonthDisplay() {
+            const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            document.getElementById('currentMonth').textContent = `${meses[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        }
+
+        async function prevMonth() {
+            const hoje = new Date();
+            const firstOfCurrent = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+            const firstOfView = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            if (firstOfView <= firstOfCurrent) { showToast('Não pode ver meses anteriores!', 'error'); return; }
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            await renderizarLista();
+        }
+        async function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            await renderizarLista();
+        }
+
+        // ================================================================
+        // ABRIR DIA (MODAL)
+        // ================================================================
+        async function abrirDia(dataStr) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                const modal = document.getElementById('dayModal');
+                const title = document.getElementById('modalDayTitle');
+                const content = document.getElementById('modalDayContent');
+                const [ano, mes, dia] = dataStr.split('-').map(Number);
+                const data = new Date(ano, mes - 1, dia);
+                const diaSemana = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'][data.getDay()];
+                const nomeDia = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][data.getDay()];
+                title.innerHTML = `<i class="fas fa-calendar-alt"></i> ${nomeDia}, ${dia}/${mes}/${ano}`;
+                modal.dataset.date = dataStr;
+
+                const [horarios, escalas, avisos] = await Promise.all([
+                    DB.getHorarios(),
+                    DB.getEscalas(mes, ano),
+                    DB.getAvisos(dataStr)
+                ]);
+
+                let horariosDoDia = horarios.filter(h => h.dia_semana === diaSemana);
+                if (diaSemana === 'sexta' && dia <= 7) {
+                    horariosDoDia.push({ id: 'extra', dia_semana: 'sexta', horario: '08:00', local: 'Paróquia São Benedito (1ª Sexta)' });
+                }
+                const escalasDoDia = escalas.filter(e => e.data_escala === dataStr);
+
+                let html = '';
+                if (horariosDoDia.length === 0) {
+                    html = `<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhum horário de missa neste dia.</p></div>`;
+                } else {
+                    for (const h of horariosDoDia) {
+                        // Verifica se há aviso para este horário
+                        const aviso = avisos.find(a => a.horario === h.horario && (a.local || '') === (h.local || ''));
+                        const escalasHorario = escalasDoDia.filter(e => e.horario === h.horario && (e.local || '') === (h.local || ''));
+                        const confirmados = escalasHorario.filter(e => e.status === 'confirmado');
+                        const pendentes = escalasHorario.filter(e => e.status === 'pendente');
+                        const recusados = escalasHorario.filter(e => e.status === 'recusado');
+
+                        let statusHtml = '';
+                        let acoesHtml = '';
+
+                        // ADMIN: botão Aviso (e remover aviso)
+                        if (isAdmin) {
+                            if (aviso) {
+                                acoesHtml += `
+                                    <button class="btn btn-sm btn-danger" data-action="remover-aviso" data-id="${aviso.id}" data-data="${dataStr}" data-horario="${h.horario}" data-local="${h.local}">
+                                        <i class="fas fa-trash"></i> Remover Aviso
+                                    </button>
+                                `;
+                            } else {
+                                acoesHtml += `
+                                    <button class="btn btn-sm btn-warning" data-action="aviso" data-data="${dataStr}" data-horario="${h.horario}" data-local="${h.local}">
+                                        <i class="fas fa-bullhorn"></i> Aviso
+                                    </button>
+                                `;
+                            }
+                        }
+
+                        // Se houver aviso, mostra a mensagem e não permite ações de coroinha
+                        if (aviso) {
+                            statusHtml += `
+                                <div class="aviso-box">
+                                    <i class="fas fa-bullhorn"></i>
+                                    <span class="aviso-mensagem">${aviso.mensagem}</span>
+                                </div>
+                            `;
+                            // Não mostra ações de coroinha
+                        } else {
+                            // Lógica normal (admin ou coroinha)
+                            if (isAdmin) {
+                                if (confirmados.length > 0) {
+                                    const nomes = confirmados.map(e => e.coroinha_nome).join(', ');
+                                    statusHtml += `<div class="status status-confirmado"><i class="fas fa-check-circle"></i> Confirmados: ${nomes}</div>`;
+                                }
+                                if (pendentes.length > 0) {
+                                    const nomes = pendentes.map(e => e.coroinha_nome).join(', ');
+                                    statusHtml += `<div class="status status-pendente"><i class="fas fa-hourglass-half"></i> Pendentes: ${nomes}</div>`;
+                                    pendentes.forEach(p => {
+                                        acoesHtml += `
+                                            <button class="btn btn-sm btn-success" data-action="confirmar" data-id="${p.id}"><i class="fas fa-check"></i> Confirmar</button>
+                                            <button class="btn btn-sm btn-danger" data-action="recusar" data-id="${p.id}"><i class="fas fa-times"></i> Recusar</button>
+                                        `;
+                                    });
+                                }
+                                if (recusados.length > 0) {
+                                    const nomes = recusados.map(e => e.coroinha_nome).join(', ');
+                                    statusHtml += `<div class="status status-recusado"><i class="fas fa-times-circle"></i> Recusados: ${nomes}</div>`;
+                                }
+                                if (confirmados.length === 0 && pendentes.length === 0 && recusados.length === 0) {
+                                    statusHtml = `<div class="status">Sem coroinhas</div>`;
+                                }
+                            } else {
+                                const coroinhaId = currentUser?.id;
+                                const minhaConfirmacao = confirmados.find(e => String(e.coroinha_id) === String(coroinhaId));
+                                const minhaPendencia = pendentes.find(e => String(e.coroinha_id) === String(coroinhaId));
+                                const minhaRecusa = recusados.find(e => String(e.coroinha_id) === String(coroinhaId));
+                                if (minhaConfirmacao) {
+                                    statusHtml = `<div class="status status-confirmado"><i class="fas fa-check-circle"></i> Você está confirmado</div>`;
+                                    acoesHtml += `
+                                        <button class="btn btn-sm btn-danger" data-action="cancelar-confirmacao" data-id="${minhaConfirmacao.id}"><i class="fas fa-times"></i> Cancelar</button>
+                                        <button class="btn btn-sm btn-warning" data-action="solicitar-troca" data-id="${minhaConfirmacao.id}" data-data="${dataStr}" data-horario="${h.horario}" data-local="${h.local}"><i class="fas fa-exchange-alt"></i> Solicitar Troca</button>
+                                    `;
+                                } else if (minhaPendencia) {
+                                    statusHtml = `<div class="status status-pendente"><i class="fas fa-hourglass-half"></i> Aguardando confirmação</div>`;
+                                    acoesHtml += `
+                                        <button class="btn btn-sm btn-danger" data-action="cancelar-oferta" data-id="${minhaPendencia.id}"><i class="fas fa-times"></i> Cancelar oferta</button>
+                                    `;
+                                } else if (minhaRecusa) {
+                                    statusHtml = `<div class="status status-recusado"><i class="fas fa-times-circle"></i> Sua oferta foi recusada</div>`;
+                                } else {
+                                    statusHtml = `<div class="status">Vago</div>`;
+                                    acoesHtml += `
+                                        <button class="btn btn-primary btn-lg" data-action="oferecer" data-data="${dataStr}" data-horario="${h.horario}" data-local="${h.local}">
+                                            <i class="fas fa-hand-holding-heart"></i> Quero servir
+                                        </button>
+                                    `;
+                                }
+                            }
+                        }
+
+                        html += `
+                            <div class="missa-item">
+                                <div class="horario"><i class="far fa-clock"></i> ${h.horario}</div>
+                                <div class="local"><i class="fas fa-church"></i> ${h.local}</div>
+                                ${statusHtml}
+                                <div class="missa-actions">${acoesHtml}</div>
+                            </div>
+                        `;
+                    }
+                }
+                if (isAdmin) {
+                    html += `<div style="margin-top:16px;">
+                        <button class="btn btn-danger btn-lg" data-action="limpar-dia" data-data="${dataStr}">
+                            <i class="fas fa-trash"></i> Limpar todas as escalas do dia
+                        </button>
+                    </div>`;
+                }
+                content.innerHTML = html;
+
+                content.querySelectorAll('[data-action]').forEach(btn => {
+                    btn.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        const action = this.dataset.action;
+                        const id = this.dataset.id;
+                        const data = this.dataset.data;
+                        const horario = this.dataset.horario;
+                        const local = this.dataset.local;
+                        try {
+                            if (action === 'confirmar') await confirmarEscala(id);
+                            else if (action === 'recusar') await recusarEscala(id);
+                            else if (action === 'cancelar-confirmacao') await cancelarConfirmacao(id);
+                            else if (action === 'cancelar-oferta') await cancelarOferta(id);
+                            else if (action === 'oferecer') await oferecerCoroinha(data, horario, local);
+                            else if (action === 'limpar-dia') await limparDia(data);
+                            else if (action === 'solicitar-troca') await abrirModalSolicitacao(id, data, horario, local);
+                            else if (action === 'aviso') await criarAviso(data, horario, local);
+                            else if (action === 'remover-aviso') await removerAviso(id);
+                        } catch (err) {
+                            console.error('Erro na ação:', err);
+                            showToast('Erro: ' + err.message, 'error');
+                        }
+                    });
+                });
+                modal.classList.add('active');
+            } catch (e) {
+                console.error('Erro ao abrir dia:', e);
+                showToast('Erro ao carregar dia: ' + e.message, 'error');
+            }
+        }
+
+        function closeDayModal() { document.getElementById('dayModal').classList.remove('active'); }
+
+        // ================================================================
+        // AÇÕES DE AVISO
+        // ================================================================
+        async function criarAviso(dataStr, horario, local) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!isAdmin) { showToast('Apenas administradores podem criar avisos.', 'error'); return; }
+
+                // Verifica se já existe aviso para este horário
+                const avisos = await DB.getAvisos(dataStr, horario, local);
+                if (avisos && avisos.length > 0) {
+                    showToast('Já existe um aviso para esta missa.', 'error');
+                    return;
+                }
+
+                await DB.createAviso({
+                    data_escala: dataStr,
+                    horario: horario,
+                    local: local || '',
+                    mensagem: '⚠️ Escala à parte - Verificar grupo ⚠️'
+                });
+
+                showToast('📢 Aviso criado! Os coroinhas não poderão se oferecer para esta missa.', 'success');
+                await recarregarModalEDados(dataStr);
+            } catch (e) {
+                console.error(e);
+                showToast('Erro ao criar aviso: ' + e.message, 'error');
+            }
+        }
+
+        async function removerAviso(avisoId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!isAdmin) { showToast('Apenas administradores podem remover avisos.', 'error'); return; }
+                if (!confirm('Remover este aviso? Os coroinhas poderão se oferecer novamente.')) return;
+
+                await DB.deleteAviso(avisoId);
+                showToast('Aviso removido.', 'success');
+                await recarregarModalEDados();
+            } catch (e) {
+                console.error(e);
+                showToast('Erro ao remover aviso: ' + e.message, 'error');
+            }
+        }
+
+        // ================================================================
+        // AÇÕES DE ESCALA
+        // ================================================================
+        async function oferecerCoroinha(dataStr, horario, local) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!coroinhaAtual) { showToast('Erro: coroinha não identificado', 'error'); return; }
+                const [ano, mes] = dataStr.split('-').map(Number);
+                const escalas = await DB.getEscalas(mes, ano);
+                const existente = escalas.find(e =>
+                    e.data_escala === dataStr && e.horario === horario &&
+                    (e.local || '') === (local || '') &&
+                    String(e.coroinha_id) === String(coroinhaAtual.id)
+                );
+                if (existente) { showToast('Você já está nessa missa!', 'error'); return; }
+                await DB.createEscala({ mes, ano, data_escala: dataStr, horario, local,
+                    coroinha_id: coroinhaAtual.id, coroinha_nome: coroinhaAtual.nome,
+                    status: 'pendente', funcao: 'Coroinha' });
+                showToast('Oferta registrada! Aguardando confirmação.', 'success');
+                await recarregarModalEDados(dataStr);
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function cancelarOferta(escalaId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Cancelar sua oferta?')) return;
+                await DB.deleteEscala(escalaId);
+                showToast('Oferta cancelada.', 'success');
+                await recarregarModalEDados();
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function cancelarConfirmacao(escalaId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Cancelar sua confirmação?')) return;
+                await DB.deleteEscala(escalaId);
+                showToast('Confirmação cancelada.', 'success');
+                await recarregarModalEDados();
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function confirmarEscala(escalaId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                await DB.updateEscala(escalaId, { status: 'confirmado' });
+                showToast('Escala confirmada!', 'success');
+                await recarregarModalEDados();
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function recusarEscala(escalaId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Recusar esta oferta?')) return;
+                await DB.updateEscala(escalaId, { status: 'recusado' });
+                showToast('Oferta recusada.', 'success');
+                await recarregarModalEDados();
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function limparDia(dataStr) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Limpar todas as escalas deste dia?')) return;
+                await DB.deleteEscalasByData(dataStr);
+                showToast('Dia limpo!', 'success');
+                await recarregarModalEDados(dataStr);
+            } catch (e) { console.error(e); showToast('Erro: ' + e.message, 'error'); }
+        }
+
+        async function recarregarModalEDados(dataStr) {
+            const modal = document.getElementById('dayModal');
+            const currentData = dataStr || modal.dataset.date;
+            if (currentData) await abrirDia(currentData);
+            await renderizarLista();
+            if (isAdmin) await atualizarContadorSolicitacoes();
+        }
+
+        // ================================================================
+        // SOLICITAÇÕES DE TROCA
+        // ================================================================
+        async function abrirModalSolicitacao(escalaId, dataStr, horario, local) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!coroinhaAtual) { showToast('Erro: coroinha não identificado', 'error'); return; }
+
+                const modal = document.getElementById('solicitacaoModal');
+                const content = document.getElementById('solicitacaoModalContent');
+
+                let html = `
+                    <p style="margin-bottom:12px;">Solicitar substituição para <strong>${horario} - ${local}</strong></p>
+                    <label class="form-label">Substituto sugerido (opcional):</label>
+                    <input type="text" id="substitutoInput" class="form-input" placeholder="Digite o nome do substituto (opcional)">
+                    <div class="form-hint">Deixe em branco se não tiver um substituto específico.</div>
+                    <label class="form-label">Justificativa (opcional):</label>
+                    <textarea id="justificativaInput" class="form-textarea" placeholder="Motivo da troca..."></textarea>
+                    <button class="btn btn-primary btn-lg" id="btnEnviarSolicitacao">
+                        <i class="fas fa-paper-plane"></i> Enviar Solicitação
+                    </button>
+                `;
+                content.innerHTML = html;
+                modal.dataset.escalaId = escalaId;
+
+                document.getElementById('btnEnviarSolicitacao').addEventListener('click', async function() {
+                    const substitutoNome = document.getElementById('substitutoInput').value.trim();
+                    const justificativa = document.getElementById('justificativaInput').value.trim();
+                    await enviarSolicitacao(escalaId, substitutoNome, justificativa);
+                });
+
+                modal.classList.add('active');
+            } catch (e) {
+                console.error(e);
+                showToast('Erro: ' + e.message, 'error');
+            }
+        }
+
+        async function enviarSolicitacao(escalaId, substitutoNome, justificativa) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                const existentes = await DB.getSolicitacoes('pendente');
+                const jaExiste = existentes.some(s => String(s.escala_id) === String(escalaId));
+                if (jaExiste) {
+                    showToast('Já existe uma solicitação pendente para esta missa.', 'error');
+                    return;
+                }
+
+                let substitutoId = null;
+                if (substitutoNome) {
+                    const coroinhas = await DB.getCoroinhas();
+                    const encontrado = coroinhas.find(c => c.nome.toLowerCase() === substitutoNome.toLowerCase());
+                    if (encontrado) {
+                        substitutoId = encontrado.id;
+                    } else {
+                        showToast('Coroinha não encontrado. A solicitação será enviada sem substituto definido.', 'warning');
+                    }
+                }
+
+                await DB.createSolicitacao({
+                    escala_id: escalaId,
+                    coroinha_solicitante_id: coroinhaAtual.id,
+                    coroinha_substituto_id: substitutoId,
+                    justificativa: justificativa || '',
+                    substituto_nome: substitutoNome || '',
+                    status: 'pendente'
+                });
+
+                showToast('Solicitação enviada com sucesso! Aguarde a resposta do administrador.', 'success');
+                document.getElementById('solicitacaoModal').classList.remove('active');
+                await renderizarLista();
+                if (isAdmin) await atualizarContadorSolicitacoes();
+            } catch (e) {
+                console.error(e);
+                showToast('Erro ao enviar solicitação: ' + e.message, 'error');
+            }
+        }
+
+        // ================================================================
+        // ADMIN: LISTAR SOLICITAÇÕES
+        // ================================================================
+        async function abrirListaSolicitacoes() {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!isAdmin) { showToast('Apenas administradores podem ver solicitações.', 'error'); return; }
+
+                const modal = document.getElementById('listaSolicitacoesModal');
+                const content = document.getElementById('listaSolicitacoesContent');
+
+                const solicitacoes = await DB.getSolicitacoes('pendente');
+                if (solicitacoes.length === 0) {
+                    content.innerHTML = `<div class="empty-state"><i class="fas fa-check-circle"></i><p>Nenhuma solicitação pendente.</p></div>`;
+                    modal.classList.add('active');
+                    return;
+                }
+
+                const escalas = await Promise.all(solicitacoes.map(s => API.get('escalas', { id: s.escala_id })));
+                const escalasMap = {};
+                escalas.forEach((e, i) => {
+                    if (e && e.length > 0) escalasMap[solicitacoes[i].id] = e[0];
+                });
+
+                const coroinhas = await DB.getCoroinhas();
+                const coroinhasMap = {};
+                coroinhas.forEach(c => coroinhasMap[c.id] = c.nome);
+
+                let html = '';
+                for (const s of solicitacoes) {
+                    const escala = escalasMap[s.id] || {};
+                    const solicitanteNome = coroinhasMap[s.coroinha_solicitante_id] || 'Desconhecido';
+                    const substitutoNome = s.substituto_nome || (s.coroinha_substituto_id ? (coroinhasMap[s.coroinha_substituto_id] || 'Não definido') : 'Não sugerido');
+                    html += `
+                        <div class="solicitacao-item">
+                            <div class="solicitante"><i class="fas fa-user"></i> Solicitante: <strong>${solicitanteNome}</strong></div>
+                            <div class="substituto"><i class="fas fa-user-plus"></i> Substituto sugerido: <strong>${substitutoNome}</strong></div>
+                            <div class="justificativa">${s.justificativa ? '📝 ' + s.justificativa : ''}</div>
+                            <div style="font-size:0.8rem; color:#8a7a6a; margin:4px 0;">
+                                ${escala.horario || ''} - ${escala.local || ''} (${escala.data_escala || ''})
+                            </div>
+                            <div class="solicitacao-actions">
+                                <button class="btn btn-sm btn-success" data-action="aceitar-troca" data-id="${s.id}">
+                                    <i class="fas fa-check"></i> Aceitar
+                                </button>
+                                <button class="btn btn-sm btn-danger" data-action="recusar-troca" data-id="${s.id}">
+                                    <i class="fas fa-times"></i> Recusar
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+                content.innerHTML = html;
+
+                content.querySelectorAll('[data-action]').forEach(btn => {
+                    btn.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        const action = this.dataset.action;
+                        const id = this.dataset.id;
+                        try {
+                            if (action === 'aceitar-troca') await aceitarTroca(id);
+                            else if (action === 'recusar-troca') await recusarTroca(id);
+                        } catch (err) {
+                            console.error('Erro:', err);
+                            showToast('Erro: ' + err.message, 'error');
+                        }
+                    });
+                });
+
+                modal.classList.add('active');
+            } catch (e) {
+                console.error(e);
+                showToast('Erro: ' + e.message, 'error');
+            }
+        }
+
+        async function aceitarTroca(solicitacaoId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Aceitar esta solicitação de troca? O coroinha será removido da escala e você poderá colocar outro manualmente.')) return;
+
+                const solicitacoes = await DB.getSolicitacoes();
+                const solicitacao = solicitacoes.find(s => String(s.id) === String(solicitacaoId));
+                if (!solicitacao) { showToast('Solicitação não encontrada!', 'error'); return; }
+
+                await DB.updateEscala(solicitacao.escala_id, {
+                    coroinha_id: null,
+                    coroinha_nome: null,
+                    status: 'pendente'
+                });
+
+                await DB.updateSolicitacao(solicitacaoId, {
+                    status: 'aceita',
+                    data_resposta: new Date().toISOString()
+                });
+
+                showToast('✅ Solicitação aceita! A escala foi liberada. Agora você pode escalar outro coroinha.', 'success');
+                document.getElementById('listaSolicitacoesModal').classList.remove('active');
+                await renderizarLista();
+                await atualizarContadorSolicitacoes();
+            } catch (e) {
+                console.error(e);
+                showToast('Erro: ' + e.message, 'error');
+            }
+        }
+
+        async function recusarTroca(solicitacaoId) {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!confirm('Recusar esta solicitação de troca?')) return;
+
+                await DB.updateSolicitacao(solicitacaoId, {
+                    status: 'recusada',
+                    data_resposta: new Date().toISOString()
+                });
+
+                showToast('Solicitação recusada.', 'success');
+                document.getElementById('listaSolicitacoesModal').classList.remove('active');
+                await renderizarLista();
+                await atualizarContadorSolicitacoes();
+            } catch (e) {
+                console.error(e);
+                showToast('Erro: ' + e.message, 'error');
+            }
+        }
+
+        // ================================================================
+        // ATUALIZAR CONTADOR DE SOLICITAÇÕES (ADMIN)
+        // ================================================================
+        async function atualizarContadorSolicitacoes() {
+            try {
+                if (!supabaseReady || !isAdmin) return;
+                const solicitacoes = await DB.getSolicitacoes('pendente');
+                const count = solicitacoes.length;
+                document.getElementById('solicitacoesCount').textContent = count;
+            } catch (e) {
+                console.warn('Erro ao atualizar contador:', e);
+            }
+        }
+
+        // ================================================================
+        // GERAR ESCALA (ADMIN)
+        // ================================================================
+        async function generateScale() {
+            try {
+                if (!supabaseReady) { showToast('Aguardando conexão...', 'error'); return; }
+                if (!isAdmin) { showToast('Apenas administradores podem gerar escala!', 'error'); return; }
+                const mes = currentDate.getMonth() + 1;
+                const ano = currentDate.getFullYear();
+                const [horarios, disponibilidades, coroinhas] = await Promise.all([
+                    DB.getHorarios(), DB.getDisponibilidades(mes, ano), DB.getCoroinhas()
+                ]);
+                if (horarios.length === 0) { showToast('Cadastre horários primeiro!', 'error'); return; }
+                if (disponibilidades.length === 0) { showToast('Nenhum coroinha respondeu disponibilidade!', 'error'); return; }
+                const ativos = coroinhas.filter(c => c.ativo);
+                if (ativos.length === 0) { showToast('Nenhum coroinha ativo!', 'error'); return; }
+
+                const novasEscalas = [];
+                const usados = {};
+                const diasNoMes = new Date(ano, mes, 0).getDate();
+                for (let dia = 1; dia <= diasNoMes; dia++) {
+                    const data = new Date(ano, mes - 1, dia);
+                    const diaSemana = ['domingo','segunda','terca','quarta','quinta','sexta','sabado'][data.getDay()];
+                    const dataStr = `${ano}-${String(mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+                    let horariosDoDia = horarios.filter(h => h.dia_semana === diaSemana);
+                    if (diaSemana === 'sexta' && dia <= 7) {
+                        horariosDoDia.push({ id: 'extra-' + dia, dia_semana: 'sexta', horario: '08:00', local: 'Paróquia São Benedito (1ª Sexta)' });
+                    }
+                    for (const h of horariosDoDia) {
+                        const disponiveis = disponibilidades.filter(d => {
+                            const dispDia = d.disponibilidade?.[diaSemana] || [];
+                            return dispDia.includes(h.horario);
+                        });
+                        if (disponiveis.length === 0) continue;
+                        disponiveis.sort((a, b) => (usados[a.coroinha_id] || 0) - (usados[b.coroinha_id] || 0));
+                        const escolhido = disponiveis[0];
+                        const coroinha = ativos.find(c => c.id === escolhido.coroinha_id);
+                        if (!coroinha) continue;
+                        novasEscalas.push({
+                            mes, ano, data_escala: dataStr, horario: h.horario, local: h.local || '',
+                            coroinha_id: coroinha.id, coroinha_nome: coroinha.nome,
+                            status: 'confirmado', funcao: 'Coroinha'
+                        });
+                        usados[coroinha.id] = (usados[coroinha.id] || 0) + 1;
+                    }
+                }
+                if (novasEscalas.length === 0) { showToast('Nenhuma escala possível!', 'error'); return; }
+                const escalasExistentes = await DB.getEscalas(mes, ano);
+                for (const e of escalasExistentes) { await DB.deleteEscala(e.id); }
+                for (const esc of novasEscalas) { await DB.createEscala(esc); }
+                await renderizarLista();
+                showToast(`✅ Escala gerada! ${novasEscalas.length} missas atribuídas.`, 'success');
+            } catch (e) {
+                console.error('Erro ao gerar escala:', e);
+                showToast('Erro: ' + e.message, 'error');
+            }
+        }
+
+        // ================================================================
+        // TOAST
+        // ================================================================
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Inicializando sistema...');
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.querySelectorAll('.login-btn').forEach(b => b.disabled = true);
+            await testConnection();
+
+            document.getElementById('btnAdminLogin').addEventListener('click', showAdminLogin);
+            document.getElementById('btnCoroinhaLogin').addEventListener('click', showCoroinhaLogin);
+            document.getElementById('btnLoginAdmin').addEventListener('click', loginAdmin);
+            document.getElementById('btnLoginCoroinha').addEventListener('click', loginCoroinha);
+            document.getElementById('btnCancelAdmin').addEventListener('click', hideLoginForms);
+            document.getElementById('btnCancelCoroinha').addEventListener('click', hideLoginForms);
+
+            document.getElementById('btnLogout').addEventListener('click', logout);
+            document.getElementById('prevMonth').addEventListener('click', prevMonth);
+            document.getElementById('nextMonth').addEventListener('click', nextMonth);
+            document.getElementById('generateScaleBtn').addEventListener('click', generateScale);
+            document.getElementById('modalCloseBtn').addEventListener('click', closeDayModal);
+            document.getElementById('solicitacaoModalClose').addEventListener('click', function() {
+                document.getElementById('solicitacaoModal').classList.remove('active');
+            });
+            document.getElementById('listaSolicitacoesModalClose').addEventListener('click', function() {
+                document.getElementById('listaSolicitacoesModal').classList.remove('active');
+            });
+            document.getElementById('btnVerSolicitacoes').addEventListener('click', abrirListaSolicitacoes);
+
+            document.getElementById('dayModal').addEventListener('click', function(e) { if (e.target === this) closeDayModal(); });
+            document.getElementById('solicitacaoModal').addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+            document.getElementById('listaSolicitacoesModal').addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeDayModal();
+                    document.getElementById('solicitacaoModal').classList.remove('active');
+                    document.getElementById('listaSolicitacoesModal').classList.remove('active');
+                }
+            });
+
+            document.getElementById('senhaAdmin').addEventListener('keypress', function(e) { if (e.key === 'Enter') loginAdmin(); });
+            document.getElementById('nomeCoroinhaLogin').addEventListener('keypress', function(e) { if (e.key === 'Enter') loginCoroinha(); });
+
+            updateMonthDisplay();
+        });
+    </script>
+</body>
+</html>
